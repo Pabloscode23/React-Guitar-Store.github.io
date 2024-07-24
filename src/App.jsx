@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Header from "./components/Header"
 import Guitar from "./components/Guitar"
-
+import { db } from './data/db.js'
 
 function App() {
-  //State
-  const [auth, setAuth] = useState(false);
-  const [total, setTotal] = useState(0);
+  //asi de manera local
+  const [data, setData] = useState(db)
 
-  useEffect(() => {
-    console.log("Comp listo");
-  }, [])
 
-  console.log(auth);
 
 
   return (
@@ -22,7 +17,17 @@ function App() {
         <h2 className="text-center">Nuestra Colección</h2>
 
         <div className="row mt-5">
-          <Guitar />
+          {data.map((guitar) => (
+            // eslint-disable-next-line react/jsx-key
+            <Guitar
+              key={guitar.id}
+              guitar={guitar}
+
+            />
+          )
+          )}
+
+
         </div>
       </main>
 
