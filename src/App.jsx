@@ -6,9 +6,23 @@ import { db } from './data/db.js'
 function App() {
   //asi de manera local
   const [data, setData] = useState(db)
+  const [cart, setCart] = useState([])
 
+  function addToCart(item) {
+    //if true retorna indice, si no -1
+    const itemExists = cart.findIndex(temp => temp.id == item.id)
+    // returns the index of the first element in an array that satisfies the provided
 
-
+    if (itemExists >= 0) {//existe en el carrito
+      console.log('ya existe');
+      item.quantity = 1;
+      //agrega una propiedad nueva -> quantity
+    } else {
+      console.log('No existe');
+      //agrega item al state de cart
+      setCart([...cart, item])
+    }
+  }
 
   return (
     <>
@@ -18,11 +32,11 @@ function App() {
 
         <div className="row mt-5">
           {data.map((guitar) => (
-            // eslint-disable-next-line react/jsx-key
             <Guitar
               key={guitar.id}
               guitar={guitar}
-
+              setCart={setCart}
+              addToCart={addToCart}
             />
           )
           )}
