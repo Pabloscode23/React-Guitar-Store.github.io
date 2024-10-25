@@ -14,10 +14,12 @@ function App() {
     // returns the index of the first element in an array that satisfies the provided
 
     if (itemExists >= 0) {//existe en el carrito
-      console.log('ya existe');
-      item.quantity = 1;
+      const updatedCart = [...cart]
+      updatedCart[itemExists].quantity++
+      setCart(updatedCart)
       //agrega una propiedad nueva -> quantity
     } else {
+      item.quantity = 1;
       console.log('No existe');
       //agrega item al state de cart
       setCart([...cart, item])
@@ -26,7 +28,9 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header
+        cart={cart}
+      />
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
